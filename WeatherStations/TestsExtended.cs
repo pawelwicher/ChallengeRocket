@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using FluentAssertions;
 
 namespace WeatherStations
 {
+    [TestFixture]
     public class TestsExtended
     {
-        [Fact]
-        public async void GetActiveWeatherStationListTest()
+        [Test]
+        public void GetActiveWeatherStationListTest()
         {
             var appService = new AppService();
 
-            var actual = await appService.GetActiveWeatherStationList();
+            var actual = appService.GetActiveWeatherStationList();
 
             var expected = new[]
             {
@@ -21,29 +22,29 @@ namespace WeatherStations
                     Id = 3,
                     Name = "Berlin",
                     WeatherStationType = WeatherStationType.UvSensor
-                }, 
+                },
                 new WeatherStation
                 {
-                    Id = 2, 
-                    Name = "London", 
+                    Id = 2,
+                    Name = "London",
                     WeatherStationType = WeatherStationType.UvSensor
-                }, 
+                },
                 new WeatherStation
                 {
-                    Id = 1, 
-                    Name = "New York", 
+                    Id = 1,
+                    Name = "New York",
                     WeatherStationType = WeatherStationType.Thermometer
-                }, 
+                },
                 new WeatherStation
                 {
-                    Id = 7, 
-                    Name = "Paris", 
+                    Id = 7,
+                    Name = "Paris",
                     WeatherStationType = WeatherStationType.UvSensor
-                }, 
+                },
                 new WeatherStation
                 {
-                    Id = 5, 
-                    Name = "Toronto", 
+                    Id = 5,
+                    Name = "Toronto",
                     WeatherStationType = WeatherStationType.SoilTemperatureMeasurer
                 }
             };
@@ -51,7 +52,7 @@ namespace WeatherStations
             actual.Should().BeEquivalentTo(expected);
         }
 
-        [Fact]
+        [Test]
         public void GetTemperatureStatisticsTest()
         {
             var appService = new AppService();
@@ -92,7 +93,7 @@ namespace WeatherStations
             actual.Should().BeEquivalentTo(expected);
         }
 
-        [Fact]
+        [Test]
         public void GetTemperatureStatisticsNotOptimalComputationTest()
         {
             var weatherStations = Enumerable.Range(1, 1000)

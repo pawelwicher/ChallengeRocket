@@ -1,21 +1,22 @@
-﻿using Xunit;
+﻿using NUnit.Framework;
 using FluentAssertions;
 
 namespace WeatherStations
 {
+    [TestFixture]
     public class TestsBasic
     {
-        [Fact]
-        public async void GetActiveWeatherStationListTest()
+        [Test]
+        public void GetActiveWeatherStationListTest()
         {
             var appService = new AppService();
 
-            var actual = await appService.GetActiveWeatherStationList();
+            var actual = appService.GetActiveWeatherStationList();
 
             actual.Should().HaveCount(5);
         }
 
-        [Fact]
+        [Test]
         public void GetTemperatureStatisticsTest()
         {
             var appService = new AppService();

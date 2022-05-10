@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WeatherStations
 {
@@ -13,7 +12,7 @@ namespace WeatherStations
             _dbContext = new DbContext();
         }
 
-        public async Task<IReadOnlyCollection<WeatherStation>> GetActiveWeatherStationList()
+        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList()
         {
             const string commandText = @"
             SELECT ws.Id, ws.Name, wst.Code
@@ -25,7 +24,7 @@ namespace WeatherStations
             using var command = _dbContext.Connection.CreateCommand();
             command.CommandText = commandText;
 
-            using var reader = await command.ExecuteReaderAsync();
+            using var reader = command.ExecuteReader();
 
             var result = new List<WeatherStation>();
 

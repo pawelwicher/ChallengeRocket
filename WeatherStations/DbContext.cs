@@ -1,19 +1,19 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Data.SQLite;
 
 namespace WeatherStations
 {
     public class DbContext
     {
-        private readonly SqliteConnection _connection;
+        private readonly SQLiteConnection _connection;
 
         public DbContext()
         {
-            _connection = new SqliteConnection("Data Source=WeatherStations;Mode=Memory");
+            _connection = new SQLiteConnection("FullUri=file:mem.db?mode=memory");
             _connection.Open();
             Seed();
         }
 
-        public SqliteConnection Connection => _connection;
+        public SQLiteConnection Connection => _connection;
 
         private void Seed()
         {
