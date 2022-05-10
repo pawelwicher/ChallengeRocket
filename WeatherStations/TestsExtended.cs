@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using FluentAssertions;
 
 namespace WeatherStations
 {
@@ -11,9 +10,12 @@ namespace WeatherStations
         [Test]
         public void GetActiveWeatherStationListTest()
         {
+            var connection = DBCreation.PrepareData();
+
             var appService = new AppService();
 
-            var actual = appService.GetActiveWeatherStationList();
+            var actual = appService.GetActiveWeatherStationList(connection)
+                .ToArray();
 
             var expected = new[]
             {
@@ -49,7 +51,13 @@ namespace WeatherStations
                 }
             };
 
-            actual.Should().BeEquivalentTo(expected);
+            Assert.IsTrue(expected.Length == actual.Length);
+            for (var i = 0; i < expected.Length; i++)
+            {
+                Assert.IsTrue(expected[i].Id == actual[i].Id);
+                Assert.IsTrue(expected[i].Name == actual[i].Name);
+                Assert.IsTrue(expected[i].WeatherStationType == actual[i].WeatherStationType);
+            }
         }
 
         [Test]
@@ -82,15 +90,21 @@ namespace WeatherStations
 
             var actual = appService.GetTemperatureStatistics(
                 weatherStations,
-                temperatureMeasurements);
+                temperatureMeasurements)
+                .ToArray();
 
             var expected = new[]
             {
-                new TemperatureStatistics() { WeatherStationName = "New York", AverageTemperature = 25 },
-                new TemperatureStatistics() { WeatherStationName = "London", AverageTemperature = 15 }
+                new TemperatureStatistics() { WeatherStationName = "London", AverageTemperature = 15 },
+                new TemperatureStatistics() { WeatherStationName = "New York", AverageTemperature = 25 }
             };
 
-            actual.Should().BeEquivalentTo(expected);
+            Assert.IsTrue(expected.Length == actual.Length);
+            for (var i = 0; i < expected.Length; i++)
+            {
+                Assert.IsTrue(expected[i].WeatherStationName == actual[i].WeatherStationName);
+                Assert.IsTrue(expected[i].AverageTemperature == actual[i].AverageTemperature);
+            }
         }
 
         [Test]
@@ -127,7 +141,7 @@ namespace WeatherStations
             sw2.Stop();
             var elapsed2 = sw2.Elapsed;
 
-            (elapsed1.TotalSeconds < elapsed2.TotalSeconds / 2).Should().BeTrue();
+            Assert.IsTrue(elapsed1.TotalSeconds < elapsed2.TotalSeconds / 2);
         }
     }
 }

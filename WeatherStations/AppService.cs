@@ -1,18 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace WeatherStations
 {
     public class AppService
     {
-        private readonly DbContext _dbContext;
-
-        public AppService()
-        {
-            _dbContext = new DbContext();
-        }
-
-        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList()
+        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(SQLiteConnection connection)
         {
             const string commandText = @"
             SELECT ws.Id, ws.Name, wst.Code
@@ -21,7 +15,7 @@ namespace WeatherStations
              WHERE ws.IsActive = 1
              ORDER BY ws.Name;";
 
-            using var command = _dbContext.Connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = commandText;
 
             using var reader = command.ExecuteReader();

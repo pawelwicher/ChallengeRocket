@@ -2,26 +2,14 @@
 
 namespace WeatherStations
 {
-    public class DbContext
+    public class DBCreation
     {
-        private readonly SQLiteConnection _connection;
-
-        public DbContext()
-        {
-            _connection = new SQLiteConnection("FullUri=file:mem.db?mode=memory");
-            _connection.Open();
-            Seed();
-        }
-
-        public SQLiteConnection Connection => _connection;
-
-        private void Seed()
+        public static SQLiteConnection PrepareData()
         {
             const string commandText = @"
-
             CREATE TABLE WeatherStationType (
-               Id INTEGER PRIMARY KEY AUTOINCREMENT,
-               Code TEXT NOT NULL               
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Code TEXT NOT NULL
             );
 
             INSERT INTO WeatherStationType (Code) VALUES ('Thermometer');
@@ -44,10 +32,15 @@ namespace WeatherStations
             INSERT INTO WeatherStation (Name, IsActive, WeatherStationTypeId) VALUES ('Tokyo', 0, 1);
             INSERT INTO WeatherStation (Name, IsActive, WeatherStationTypeId) VALUES ('Paris', 1, 2);
             ";
-            
-            using var command = _connection.CreateCommand();
+
+            var connection = new SQLiteConnection("FullUri=file:mem.db?mode=memory");
+            connection.Open();
+
+            using var command = connection.CreateCommand();
             command.CommandText = commandText;
             command.ExecuteNonQuery();
+
+            return connection;
         }
     }
 }

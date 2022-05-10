@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace WeatherStations
 {
     public class AppServiceInitialCode
     {
-        private readonly DbContext _dbContext;
-
-        public AppServiceInitialCode()
-        {
-            _dbContext = new DbContext();
-        }
-
-        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList()
+        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(SQLiteConnection connection)
         {
             const string commandText = "...";
 
-            using var command = _dbContext.Connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = commandText;
 
             using var reader = command.ExecuteReader();

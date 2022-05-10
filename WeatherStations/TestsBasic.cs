@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using FluentAssertions;
 
 namespace WeatherStations
 {
@@ -9,11 +8,13 @@ namespace WeatherStations
         [Test]
         public void GetActiveWeatherStationListTest()
         {
+            var connection = DBCreation.PrepareData();
+
             var appService = new AppService();
 
-            var actual = appService.GetActiveWeatherStationList();
+            var actual = appService.GetActiveWeatherStationList(connection);
 
-            actual.Should().HaveCount(5);
+            Assert.AreEqual(5, actual.Count);
         }
 
         [Test]
@@ -36,6 +37,7 @@ namespace WeatherStations
                     WeatherStationType = WeatherStationType.UvSensor
                 }
             };
+
             var temperatureMeasurements = new[]
             {
                 new TemperatureMeasurement() { WeatherStationId = 1, Value = 25 },
@@ -48,7 +50,7 @@ namespace WeatherStations
                 weatherStations,
                 temperatureMeasurements);
 
-            actual.Should().HaveCount(2);
+            Assert.AreEqual(2, actual.Count);
         }
     }
 }
