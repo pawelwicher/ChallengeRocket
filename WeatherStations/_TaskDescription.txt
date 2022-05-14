@@ -6,13 +6,13 @@ To do this, You should fill following methods:
 
 
 
-Task<IReadOnlyCollection<WeatherStation>> GetActiveWeatherStationList()
+IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(SQLiteConnection connection)
 
 
 
 which should read data from WeatherStation table, joined with dictionary table WeatherStationType.
 
-Also it should take only active stations and sort them by name.
+Also it should take only active stations (IsActive = 1) and sort them by name (ascending).
 
 
 
@@ -28,9 +28,11 @@ IReadOnlyCollection<TemperatureStatistics> GetTemperatureStatistics(
 
 
 
-which should calculate average temperature for each station and return result sorted by station name.
+which should calculate average temperature for each station and return result sorted (ascending) by station name.
 
-Hint: doing this computation try to join weatherStations and temperatureMeasurements collections in most efficient way.
+Hint:
+Doing this computation try to join weatherStations and temperatureMeasurements collections in most efficient way.
+Think about using some specialized collections to avoid O(n2) complexity.
 
 
 
@@ -66,7 +68,7 @@ Database model with sample data
 
     IsActive INTEGER NOT NULL,
 
-    WeatherStationTypeId INTEGER,
+    WeatherStationTypeId INTEGER NOT NULL,
 
     FOREIGN KEY (WeatherStationTypeId) REFERENCES WeatherStationType (Id)
 

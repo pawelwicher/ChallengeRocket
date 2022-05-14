@@ -2,9 +2,9 @@
 {
     public enum WeatherStationType
     {
-        Thermometer,
-        UvSensor,
-        SoilTemperatureMeasurer
+        Thermometer = 1,
+        UvSensor = 2,
+        SoilTemperatureMeasurer = 3
     }
 
     public class WeatherStation

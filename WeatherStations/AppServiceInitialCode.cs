@@ -6,7 +6,8 @@ namespace WeatherStations
 {
     public class AppServiceInitialCode
     {
-        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(SQLiteConnection connection)
+        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(
+            SQLiteConnection connection)
         {
             const string commandText = "...";
 
@@ -16,6 +17,11 @@ namespace WeatherStations
             using var reader = command.ExecuteReader();
 
             var result = new List<WeatherStation>();
+
+            while (reader.Read())
+            {
+
+            }
 
             return result.ToArray();
         }

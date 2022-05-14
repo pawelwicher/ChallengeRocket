@@ -6,7 +6,8 @@ namespace WeatherStations
 {
     public class AppService
     {
-        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(SQLiteConnection connection)
+        public IReadOnlyCollection<WeatherStation> GetActiveWeatherStationList(
+            SQLiteConnection connection)
         {
             const string commandText = @"
             SELECT ws.Id, ws.Name, wst.Code

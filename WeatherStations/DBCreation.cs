@@ -20,7 +20,7 @@ namespace WeatherStations
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Name TEXT NOT NULL,
                 IsActive INTEGER NOT NULL,
-                WeatherStationTypeId INTEGER,
+                WeatherStationTypeId INTEGER NOT NULL,
                 FOREIGN KEY (WeatherStationTypeId) REFERENCES WeatherStationType (Id)
             );
 
