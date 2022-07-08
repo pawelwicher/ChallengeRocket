@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 
@@ -23,20 +24,13 @@ namespace WeatherStations
 
             var result = new List<WeatherStation>();
 
-            var weatherStationTypeDict = new Dictionary<string, WeatherStationType>()
-            {
-                ["Thermometer"] = WeatherStationType.Thermometer,
-                ["UV Sensor"] = WeatherStationType.UvSensor,
-                ["Soil Temperature Measurer"] = WeatherStationType.SoilTemperatureMeasurer
-            };
-
             while (reader.Read())
             {
                 result.Add(new WeatherStation()
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(1),
-                    WeatherStationType = weatherStationTypeDict.GetValueOrDefault(reader.GetString(2))
+                    WeatherStationType = Enum.Parse<WeatherStationType>(reader.GetString(2))
                 });
             }
 

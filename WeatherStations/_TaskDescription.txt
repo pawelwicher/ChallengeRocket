@@ -54,9 +54,9 @@ Database model with sample data
 
   INSERT INTO WeatherStationType (Code) VALUES ('Thermometer');
 
-  INSERT INTO WeatherStationType (Code) VALUES ('UV Sensor');
+  INSERT INTO WeatherStationType (Code) VALUES ('UvSensor');
 
-  INSERT INTO WeatherStationType (Code) VALUES ('Soil Temperature Measurer');
+  INSERT INTO WeatherStationType (Code) VALUES ('SoilTemperatureMeasurer');
 
 
 

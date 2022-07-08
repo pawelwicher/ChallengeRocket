@@ -13,8 +13,8 @@ namespace WeatherStations
             );
 
             INSERT INTO WeatherStationType (Code) VALUES ('Thermometer');
-            INSERT INTO WeatherStationType (Code) VALUES ('UV Sensor');
-            INSERT INTO WeatherStationType (Code) VALUES ('Soil Temperature Measurer');
+            INSERT INTO WeatherStationType (Code) VALUES ('UvSensor');
+            INSERT INTO WeatherStationType (Code) VALUES ('SoilTemperatureMeasurer');
 
             CREATE TABLE WeatherStation (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
